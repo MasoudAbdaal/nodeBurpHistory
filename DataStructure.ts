@@ -1,9 +1,9 @@
-type HTTPMethods = "GET" | "POST" | "PUT" | "OPTIONS" | "CONNECT" | "TRACE";
+type HTTPMethods = 'GET' | 'POST' | 'PUT' | 'OPTIONS' | 'CONNECT' | 'TRACE';
 
-type ShapeType = "String" | "Boolean" | "Regex" | "Integer";
+type ShapeType = 'String' | 'Boolean' | 'Regex' | 'Integer';
 
 export interface IShape {
-  value: string
+  value?: string;
   type: ShapeType | string;
   required: boolean;
   min: number;
@@ -12,9 +12,9 @@ export interface IShape {
 
 interface IFeatures {
   comment: object;
-  uploads: ["file_sharing", "profile"];
+  uploads: ['file_sharing', 'profile'];
   integrations: {
-    auth: ["  google,facebook,youtube"];
+    auth: ['  google,facebook,youtube'];
   };
 }
 
@@ -29,12 +29,12 @@ export interface IEndPoint {
 
 const info: IEndPoint = {
   otp: {
-    url: "/api/voyager/C/CustomerAccount/OTPRegister",
-    method: "POST",
+    url: '/api/voyager/C/CustomerAccount/OTPRegister',
+    method: 'POST',
     shape: {
-      mobile: { type: "String", required: true, max: 12, min: 12 },
-      confirmTerms: { type: "Boolean", required: true, max: 0, min: 0 },
-      notRobot: { type: "Boolean", required: true, max: 0, min: 0 },
+      mobile: { type: 'String', required: true, max: 12, min: 12 },
+      confirmTerms: { type: 'Boolean', required: true, max: 0, min: 0 },
+      notRobot: { type: 'Boolean', required: true, max: 0, min: 0 },
     },
     sampleData: '{"mobile":"09333039702","confirmTerms":true,"notRobot":false}',
   },

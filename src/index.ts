@@ -1,9 +1,8 @@
-import { Parser } from "xml2js";
-import * as fs from "fs";
+import * as fs from 'fs';
+import { Parser } from 'xml2js';
 
-import { IXMLEntity } from "./types/IXMLEntity";
-import { IEndPoint, IShape } from "../DataStructure";
-import { log } from "console";
+import { IEndPoint, IShape } from '../DataStructure';
+import { IXMLEntity } from './types/IXMLEntity';
 
 function readFile(): void {
   const parser = new Parser();
@@ -26,15 +25,15 @@ function readFile(): void {
           }
 
           if (
-            item.method[0] !== "OPTIONS" &&
-            (addType == "JSON" || addType == "" || item.extension[0] == "null")
+            item.method[0] !== 'OPTIONS' &&
+            (addType == 'JSON' || addType == '' || item.extension[0] == 'null')
           ) {
             const request = atob(item?.request[0]._!);
 
-            const reqBody = request.split("\r\n");
+            const reqBody = request.split('\r\n');
             const shapes: { [name: string]: IShape } = {};
 
-            if (reqBody[reqBody.length - 1] != "") {
+            if (reqBody[reqBody.length - 1] != '') {
               try {
                 const finalBody = JSON.parse(reqBody[reqBody.length - 1]);
 
@@ -64,17 +63,18 @@ function readFile(): void {
           }
         } catch (e) {
           console.error(
-            "method:",
+            'method:',
             item.method[0],
             item.url[0],
-            "\n",
-            "extension:",
+            '\n',
+            'extension:',
             item.extension[0],
             e
           );
         }
       });
     });
+    fs.writeFileSync('./output.json', JSON.stringify(finalEntity), 'utf-8');
     console.log(finalEntity);
   });
 }
